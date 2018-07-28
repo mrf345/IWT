@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block sibling_content %}
+<noscript>
+  <meta http-equiv="refresh" content="0;url=/nojs">
+</noscript>
+<script>
+    window.addEventListener('load', function () {
+        new nicEditor({iconsPath: 'https://cdnjs.cloudflare.com/ajax/libs/NicEdit/0.93/nicEditorIcons.gif'}).panelInstance('texting')
+        {% if text %}
+        $('.nicEdit-main').html($('#toGetText').html())
+        {% endif %}
+    })
+</script>
+<div class="row wooden-shadow pl-3 pr-3 mt-2" style='border-radius: 3%;'>
+    <div class='col-xs-12 text-center mt-4'>
+        <h1 class='header-font inner-shadow-text'>{% if text %} Updating {% else %} Adding a new {% endif %}text:</h1>
+    </div>
+    <div class='col-xs-12 mt-5 mb-4'>
+        <form class='toEdit' method='POST'>
+            {% csrf_token %}
+            <center class='mb-4'>
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}" class='fs-130 inner-shadow-text'>Enter text title:</label>
+                    {{ form.title }}
+                    {% if form.errors.title %}
+                        <p class='text h3 text-center mt-3 mb-1 main-font' style='font-stretch: ultra-expanded; font-weight: bold;'>[ Error: Maximum 200 letters and minimum 5. ]</p>
+                    {% endif %}
+                </div>
+            </center>
+            {% if text %}
+                <div id='toGetText' class='hidden'>{{ text|safe }}</div>
+            {% endif %}
+            {{ form.text|safe }}
+            {% if form.errors.text %}
+                <p class='text h3 text-center mt-3 mb-1 main-font' style='font-stretch: ultra-expanded; font-weight: bold;'>[ Error: Maximum 1999 letters and minimum 10. ]</p>
+            {% endif %}
+        </form>
+        <p class='pull-left header-font h2 mt-4 effect-text' style='cursor: pointer;' onclick="$('.nicEdit-main').html(''); $('.toAddText').val('');">Reset</p>
+        <p class='pull-right header-font h2 mt-4 effect-text' style='cursor: pointer;' onclick="$('#texting').html($('.nicEdit-main').html()); $('.toEdit').submit()">{% if text %} Update {% else %} Add {% endif %}</p>
+    </div>
+</div>
+{% endblock %}

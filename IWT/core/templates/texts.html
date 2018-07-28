@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block sibling_content %}
+<noscript>
+  <meta http-equiv="refresh" content="0;url=/nojs">
+</noscript>
+{% if data|get_len == 0 %}
+<div class="row mt-10 mb-10">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0 woodened p-5 default">
+        <h1 class='text-center inner-shadow-text header-font'>
+            <span class='fa fa-2x fa-search inner-shadow-text mb-3'></span><br>
+            Unfortunately, no texts were found to display.
+        </h1>
+    </div>
+</div>
+{% else %}
+<div class="row mb-4 mt-3 default hidden-xs">
+    <div class="col-sm-2 h1 header-font inner-shadow-text" style="color: darkred;">
+        Private texts <br>
+        <span class="badge" style="background-color: darkred;">{{ private_texts }}</span>
+    </div>
+    <div class="col-sm-2 col-xs-offset-3 h1 text-center header-font inner-shadow-text" style="color: dimgray;">
+        Total texts <br>
+        <span class="badge" style="background-color: dimgrey;">{{ all_texts }}</span>
+    </div>
+    <div class="col-sm-2 h1 text-right header-font col-xs-offset-3 inner-shadow-text" style='color:darkblue;'>
+        Public texts <br>
+        <span class="badge badge-lg badge-primary" style='background-color: darkblue;'>{{ public_texts }}</span>
+    </div>
+</div>
+<div class="row mb-4 mt-3 default hidden-sm hidden-md hidden-xl hidden-lg">
+    <div class="col-xs-4 h2 header-font inner-shadow-text" style="color: darkred;">
+        Private texts <br>
+        <span class="badge" style="background-color: darkred;">{{ private_texts }}</span>
+    </div>
+    <div class="col-xs-4 h2 text-center header-font inner-shadow-text" style="color: dimgray;">
+        Total texts <br>
+        <span class="badge" style="background-color: dimgrey;">{{ all_texts }}</span>
+    </div>
+    <div class="col-xs-4 h2 text-right header-font inner-shadow-text" style='color:darkblue;'>
+        Public texts <br>
+        <span class="badge badge-lg badge-primary" style='background-color: darkblue;'>{{ public_texts }}</span>
+    </div>
+</div>
+<div class='{% if data|get_len == 1 %}mv-10{% elif data|get_len == 2 %}mv-8{% elif data|get_len == 3 %}mv-5{% endif %}'></div>
+{% for index, text in data|number_it %}
+<div class="row">
+    {% if text.user_id.username == 'Anonymous' %}
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0">
+            <div class="main-font effect-minor woodened-item-primary pt-1 text-center"
+                onclick="window.location = '/texting/{{text.id}}'"
+            >
+                <span class='fa fa-2x fa-file-text inner-shadow-text-primary inline' 
+                    style='padding-right: 0% !important; padding-left: 1% !important;'
+                ></span>
+                <strong class='h3 header-font inner-shadow-text-primary inline'
+                style='padding-left: 1% !important;'
+                >
+                    {{ index }}. {{ text.title }}
+                </strong>
+                <p class='fs-160 text-center inline'
+                    style='padding-left: 0% !important;'
+                >
+                    <i style='padding-left: 0% !important;'>- Anonymous -</i> {{ text.date }}
+                </p>
+                <strong class='fs-120 header-font inner-shadow-text-primary'>
+                    <span class='fa fa-1x fa-eye inner-shadow-text-primary'
+                        style='padding-left: 0% !important; padding-right: 0.5% !important;'
+                    ></span>{{ text.viewed }}
+                    <span class='fa fa-1x fa-heart inner-shadow-text-primary'
+                        style='padding-left: 1% !important; padding-right: 0.5% !important;'
+                    ></span>{{ text.shared }}
+                </strong>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0">
+            <div class="main-font effect-minor woodened-item-danger pt-1 text-center"
+                onclick="window.location = '/texting/{{text.id}}'"
+            >
+                <span class='fa fa-2x fa-file-text inner-shadow-text-danger inline' 
+                    style='padding-right: 0% !important; padding-left: 1% !important;'
+                ></span>
+                <strong class='h3 header-font inner-shadow-text-danger inline'
+                style='padding-left: 1% !important;'
+                >
+                   {{ index }}. {{ text.title }}
+                </strong>
+                <p class='fs-160 text-center inline'
+                    style='padding-left: 0% !important;'
+                >
+                    <i style='padding-left: 0% !important;'>- {{ text.user_id }} -</i> {{ text.date }}
+                </p>
+                <strong class='fs-120 header-font inner-shadow-text-danger'>
+                    <span class='fa fa-1x fa-eye inner-shadow-text-danger'
+                        style='padding-left: 0% !important; padding-right: 0.5% !important;'
+                    ></span>{{ text.viewed }}
+                    <span class='fa fa-1x fa-heart inner-shadow-text-danger'
+                        style='padding-left: 1% !important; padding-right: 0.5% !important;'
+                    ></span>{{ text.shared }}
+                </strong>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+<div class='{% if data|get_len == 1 %}mv-10{% elif data|get_len == 2 %}mv-6{% elif data|get_len == 3 %}mv-4{% endif %}'></div>
+<center>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination fs-140">
+        {% if data.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ data.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        {% for n in data.paginator.num_pages|get_range %}
+        <li class="page-item {% if n == data.number %} active {% endif %}"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+        {% endfor %}
+        {% if data.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ data.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+</center>
+{% endif %}
+{% endblock %}

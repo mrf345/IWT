@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block sibling_content %}
+<script>
+    window.location = window.location.origin
+</script>
+<div class="row">
+    <div class="col-xs-12 woodened p-5 pointer default mt-5 mb-5">
+        <h1 class='text-center inner-shadow-text header-font'>
+            <span class='fa fa-2x fa-exclamation-triangle inner-shadow-text mb-3'></span><br>
+            This website relies heavily on JavaScript, please enable it !
+        </h1>
+    </div>
+</div>
+{% endblock %}

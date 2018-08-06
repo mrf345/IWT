@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages'
             ],
         },
     },
@@ -123,7 +123,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = '/not_logged'
-# STATIC_ROOT = BASE_DIR + '/static/'
 
 # Redirect 403
 CSRF_FAILURE_VIEW = 'IWT.core.views.csrf_failure'

@@ -38,7 +38,7 @@
                 <div class="col-xs-12 mt-2">
                     <center>
                         <img src="https://audio-sequence.github.io/iwt.gif" alt="Animated logo" class="img-responsive effect logo mv-2"
-                            data-toggle="tooltip" data-placement="top" title="Video demonstration"
+                            data-toggle="tooltip" data-placement="top" title="{% gtranslate 'View a demo' request.session.lang cache=True %}"
                             onclick="$('#modal-id').modal();"
                         >
                     </center>
@@ -46,7 +46,9 @@
             </div>
             <div class="col-xs-12 col-md-5 col-md-offset-1">
                 <div class="col-xs-12">
-                    <p class='header-font h2 text-center inner-shadow-text default'>Click or Touch on the word or sentence :</p>
+                    <p class='header-font h2 text-center inner-shadow-text default'>
+                        {% gtranslate 'Click or Touch on the word or sentence' request.session.lang cache=True %} :
+                    </p>
                 </div>
                 <div class="col-xs-12">
                     <div class="woodened">
@@ -55,12 +57,12 @@
                         </div>
                         <div style="text-align: center;">
                             <span class="fa fa-2x fa-headphones effect-text inner-shadow-text"
-                                data-toggle="tooltip" data-placement="top" title="read all text"
+                                data-toggle="tooltip" data-placement="top" title="{% gtranslate 'read all the text' request.session.lang cache=True %}"
                                 onclick="readTranAll('.splitIt', false)"
                             ></span>
                             <span class="fa fa-2x fa-language effect-text inner-shadow-text"
-                                data-toggle="tooltip" data-placement="top" title="Translate all text"
-                                onclick="readTranAll('.splitIt', true);"
+                                data-toggle="tooltip" data-placement="top" title="{% gtranslate 'translate all the text' request.session.lang cache=True %}"
+                                onclick="readTranAll('.splitIt', cache=True);"
                             ></span>
                         </div>
                     </div>
@@ -68,35 +70,35 @@
                 <div class="col-xs-12 pt-3">
                     <form onchange="tagReady()">
                         <div class="col-xs-6">
-                            <label for="readLang" class="inner-shadow-text fs-120">Reading in:</label>
+                            <label for="readLang" class="inner-shadow-text fs-120">{% gtranslate 'Reading in' request.session.lang cache=True %}:</label>
                             <select id="readLang" name="readLang" class="form-control text-center">
-                                <option value="en-us">American English</option>
-                                <option value="en-uk">British English</option>
-                                <option value="en-au">Australian English</option>
+                                <option value="en-us">{% gtranslate 'American English' request.session.lang cache=True %}</option>
+                                <option value="en-uk">{% gtranslate 'British English' request.session.lang cache=True %}</option>
+                                <option value="en-au">{% gtranslate 'Australian English' request.session.lang cache=True %}</option>
                             </select>
                         </div>
                         <div class="col-xs-6">
-                            <label for="tranLang" class="inner-shadow-text fs-120">Translating to:</label>
+                            <label for="tranLang" class="inner-shadow-text fs-120">{% gtranslate 'Translating to' request.session.lang cache=True %}:</label>
                             <select id="tranLang" name="tranLang" class="form-control text-center">
-                                <option value="fr">French</option>
-                                <option value="en">English</option>
-                                <option value="ar">Arabic</option>
-                                <option value="it">Italian</option>
-                                <option value="es">Spanish</option>
+                                <option value="fr">{% gtranslate 'French' request.session.lang cache=True %}</option>
+                                <option value="en">{% gtranslate 'English' request.session.lang cache=True %}</option>
+                                <option value="ar">{% gtranslate 'Arabic' request.session.lang cache=True %}</option>
+                                <option value="it">{% gtranslate 'Italian' request.session.lang cache=True %}</option>
+                                <option value="es">{% gtranslate 'Spanish' request.session.lang cache=True %}</option>
                             </select>
                         </div>
                         <div class="col-xs-6 mt-2">
-                            <label for="actEvent" class="inner-shadow-text fs-120">Read when:</label>
+                            <label for="actEvent" class="inner-shadow-text fs-120">{% gtranslate 'Read when' request.session.lang cache=True %}:</label>
                             <select id="actEvent" name="actEvent" class="form-control text-center">
-                                <option value="click">Click or Touch</option>
-                                <option value="mouseover">Mouse over</option>
+                                <option value="click">{% gtranslate 'Click or Touch' request.session.lang cache=True %}</option>
+                                <option value="mouseover">{% gtranslate 'Mouse over' request.session.lang cache=True %}</option>
                             </select>
                         </div>
                         <div class="col-xs-6 mt-2">
-                            <label for="divider" class="inner-shadow-text fs-120">Splitter:</label>
+                            <label for="divider" class="inner-shadow-text fs-120">{% gtranslate 'Process with' request.session.lang cache=True %}:</label>
                             <select id="divider" name="language" class="form-control text-center">
-                                <option value=".">Full sentences</option>
-                                <option value=".;,">Partial sentences</option>
+                                <option value=".">{% gtranslate 'Full sentence' request.session.lang cache=True %}</option>
+                                <option value=".;,">{% gtranslate 'Partial sentence' request.session.lang cache=True %}</option>
                             </select>
                         </div>
                     </form>
@@ -128,57 +130,56 @@
                 {% if user.is_authenticated %}
                 <ul class="nav navbar-nav">
                     <li class="dropdown" id='sorting'>
-                        <a href="#" class="dropdown-toggle strong" data-toggle="dropdown">Sort by <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle strong" data-toggle="dropdown">{% gtranslate 'Sort text by' request.session.lang cache=True %}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='recent'><a href="/texts_sorted/newest">Recent</a></li>
-                            <li id='oldest'><a href="/texts_sorted/oldest">Oldest</a></li>
-                            <li id='mostViewed'><a href="/texts_sorted/mostViewed">Most viewed</a></li>
-                            <li id='leastViewed'><a href="/texts_sorted/leastViewed">Least viewed</a></li>
-                            <li id='mostShared'><a href="/texts_sorted/mostShared">Most shared</a></li>
-                            <li id='leastShared'><a href="/texts_sorted/leastShared">Least viewed</a></li>
+                            <li id='recent'><a href="/texts_sorted/newest">{% gtranslate 'Recent' request.session.lang cache=True %}</a></li>
+                            <li id='oldest'><a href="/texts_sorted/oldest">{% gtranslate 'Oldest' request.session.lang cache=True %}</a></li>
+                            <li id='mostViewed'><a href="/texts_sorted/mostViewed">{% gtranslate 'Most viewed' request.session.lang cache=True %}</a></li>
+                            <li id='leastViewed'><a href="/texts_sorted/leastViewed">{% gtranslate 'Lest viewed' request.session.lang cache=True %}</a></li>
+                            <li id='mostShared'><a href="/texts_sorted/mostShared">{% gtranslate 'Most shared' request.session.lang cache=True %}</a></li>
+                            <li id='leastShared'><a href="/texts_sorted/leastShared">{% gtranslate 'Least shared' request.session.lang cache=True %}</a></li>
                         </ul>
                     </li>
-                    <li id='allTexts'><a href="/texts">Texts</a></li>
+                    <li id='allTexts'><a href="/texts">{% gtranslate 'Texts' request.session.lang cache=True %}</a></li>
                     {% if user.username != 'Anonymous' %}
-                    <li id='yourTexts'><a href="/texts_sorted/{{ user.id }}">Your texts</a></li>
+                    <li id='yourTexts'><a href="/texts_sorted/{{ user.id }}">{% gtranslate 'Your texts' request.session.lang cache=True %}</a></li>
                     {% endif %}
                 </ul>
                 <form class="navbar-form navbar-left" role="search" method="POST" action="/search_text">
                     {% csrf_token %}
                     <div class="form-group">
                         {{ form_search.text }}
-                        <!-- <input type="text" class="form-control header-font" placeholder="Keywords to look for ..."> -->
                     </div>
-                    <button type="submit" class="btn btn-default header-font strong">Search</button>
+                    <button type="submit" class="btn btn-default header-font strong">{% gtranslate 'Search' request.session.lang cache=True %}</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li id='addText'><a href="/adding_text">Add text</a></li>
+                    <li id='addText'><a href="/adding_text">{% gtranslate 'Add text' request.session.lang cache=True %}</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle strong" data-toggle="dropdown">Languages<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle strong" data-toggle="dropdown">{% gtranslate 'Languages' request.session.lang cache=True %}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='english'>
-                                <a href="#">
-                                    <span class='fa fa-globe'></span>  English
+                            <li id='english' class="{% if request.session.lang == 'en' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'en' %} window.location = '/lang_switch/en/' + get_org() {% endif %}">
+                                    <span class='fa fa-globe'></span>  {% gtranslate 'English' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='arabic'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  Arabic
+                            <li id='arabic' class="{% if request.session.lang == 'ar' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'ar' %} window.location = '/lang_switch/ar/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'Arabic' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='french'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  French
+                            <li id='french' class="{% if request.session.lang == 'fr' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'fr' %} window.location = '/lang_switch/fr/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'French' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='italian'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  Italian
+                            <li id='italian' class="{% if request.session.lang == 'it' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'it' %} window.location = '/lang_switch/it/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'Italian' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='spanish'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  Spanish
+                            <li id='spanish' class="{% if request.session.lang == 'es' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'es' %} window.location = '/lang_switch/es/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'Spanish' request.session.lang cache=True %}
                                 </a>
                             </li>
                         </ul>
@@ -187,41 +188,41 @@
                         <a href="#" class="dropdown-toggle strong" data-toggle="dropdown"> ({{ user.username }}) <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% if user.username != 'Anonymous' %}
-                            <li id='changePassword'><a onclick="$('.change_password').toggleClass('hidden');$('#changePassword').toggleClass('active');"><span class='fa fa-pencil'></span> Change password</a></li>
-                            <li id='deleteAccount'><a onclick="$('#delete').modal();"><span class='fa fa-trash'></span> Delete account</a></li>
+                            <li id='changePassword'><a onclick="$('.change_password').toggleClass('hidden');$('#changePassword').toggleClass('active');"><span class='fa fa-pencil'></span> {% gtranslate 'Change password' request.session.lang cache=True %}</a></li>
+                            <li id='deleteAccount'><a onclick="$('#delete').modal();"><span class='fa fa-trash'></span> {% gtranslate 'Delete account' request.session.lang cache=True %}</a></li>
                             {% endif %}
-                            <li><a href="/logout_all"><span class='fa fa-sign-out'></span> Logout</a></li>
+                            <li><a href="/logout_all"><span class='fa fa-sign-out'></span> {% gtranslate 'Logout' request.session.lang cache=True %}</a></li>
                         </ul>
                     </li>
                 </ul>
                 {% else %}
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle strong" data-toggle="dropdown">Languages<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle strong" data-toggle="dropdown">{% gtranslate 'Languages' request.session.lang cache=True %}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='english'>
-                                <a href="#">
-                                    <span class='fa fa-globe'></span>  English
+                            <li id='english' class="{% if request.session.lang == 'en' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'en' %} window.location = '/lang_switch/en/' + get_org() {% endif %}">
+                                    <span class='fa fa-globe'></span>  {% gtranslate 'English' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='arabic'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  Arabic
+                            <li id='arabic' class="{% if request.session.lang == 'ar' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'ar' %} window.location = '/lang_switch/ar/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'Arabic' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='french'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  French
+                            <li id='french' class="{% if request.session.lang == 'fr' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'fr' %} window.location = '/lang_switch/fr/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'French' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='italian'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  Italian
+                            <li id='italian' class="{% if request.session.lang == 'it' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'it' %} window.location = '/lang_switch/it/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'Italian' request.session.lang cache=True %}
                                 </a>
                             </li>
-                            <li id='spanish'>
-                                <a href="#">
-                                        <span class='fa fa-language'></span>  Spanish
+                            <li id='spanish' class="{% if request.session.lang == 'es' %} active {% endif %}">
+                                <a onclick="{% if request.session.lang != 'es' %} window.location = '/lang_switch/es/' + get_org() {% endif %}">
+                                    <span class='fa fa-language'></span>  {% gtranslate 'Spanish' request.session.lang cache=True %}
                                 </a>
                             </li>
                         </ul>
@@ -239,7 +240,7 @@
                     <div class="alert alert-{{m.tags}} alert-dismissable default">
                         <button class="close" type="button" data-dismiss="alert"
                         onclick="$(this).parent().parent().parent().remove();">&times;</button>
-                        <h3 class="text text-center header-font"> [ <strong>{{ m.tags.capitalize }}</strong>: {{ m }} ]</h3>
+                        <h3 class="text text-center header-font"> [ <strong>{% gtranslate m.tags.capitalize|strify request.session.lang cache=True %}</strong>: {% gtranslate m|strify request.session.lang cache=True %} ]</h3>
                     </div>
                 </div>
             </div>
@@ -254,13 +255,13 @@
                         {{ form_register.non_field_errors }}
                         <div class='form-group'>
                             {{ form_password.password.errors }}
-                            <label class='inner-shadow-text fs-130' for='{{ form_password.password.id_for_label }}'>Enter new password :</label>
+                            <label class='inner-shadow-text fs-130' for='{{ form_password.password.id_for_label }}'>{% gtranslate 'Enter new password' request.session.lang cache=True %}:</label>
                             {{ form_password.password }}
                         </div>
                         <p class="h2 main-font inner-shadow-text effect-text pull-right" style='cursor: pointer;'
                             onclick="$('#change_password').submit()"
                         >
-                            Update
+                        {% gtranslate 'Update' request.session.lang cache=True %}
                         </p>
                     </form>
                 </div>
@@ -274,16 +275,16 @@
             <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 text-center">
                 <form id="contactForm" onchange="window.oldStoredForm = $(this).serialize();">
                     <div class="form-group">
-                        <label for="name" class="inner-shadow-text fs-130 pull-left">Enter your name:</label>
-                        <input name="name" type="text" placeholder="Your name" id="name" class="form-control inner-shadow">
+                        <label for="name" class="inner-shadow-text fs-130 pull-left">{% gtranslate 'Enter your name' request.session.lang cache=True %}:</label>
+                        <input name="name" type="text" placeholder="{% gtranslate 'Your name' request.session.lang cache=True %}" id="name" class="form-control inner-shadow">
                     </div>
                     <div class="form-group">
-                        <label for="email" class="inner-shadow-text fs-130 pull-left">Enter your email:</label>
+                        <label for="email" class="inner-shadow-text fs-130 pull-left">{% gtranslate 'Enter your Email' request.session.lang cache=True %}:</label>
                         <input type="email" name="email" placeholder="example@gmail.com" id="email" class="form-control inner-shadow">
                     </div>
                     <div class="form-group">
-                        <label for="msg" class="inner-shadow-text fs-130 pull-left">Enter your message:</label><br />
-                        <textarea name="msg" id="msg" cols="30" class="form-control inner-shadow header-font" rows="10" placeholder="Hello dear developer ..."></textarea>
+                        <label for="msg" class="inner-shadow-text fs-130 pull-left">{% gtranslate 'Enter your message' request.session.lang cache=True %}:</label><br />
+                        <textarea name="msg" id="msg" cols="30" class="form-control inner-shadow header-font" rows="10" placeholder="{% gtranslate 'Hello dear developer' request.session.lang cache=True %} ..."></textarea>
                     </div>
                     <input type="hidden" name="_subject" value="IWT support" />
                     <input type="text" name="_gotcha" style="display:none" />
@@ -294,37 +295,37 @@
                 <div class="col-xs-4 pull-left">
                     <p class="h2 main-font inner-shadow-text effect-text" style='cursor: pointer;'
                         onclick="$('.contactUs').toggleClass('hidden'); $('.toUnBeat').toggleClass('beatit')"
-                    >Cancel</p>
+                    >{% gtranslate 'Cancel' request.session.lang cache=True %}</p>
                 </div>
                 <div class="col-xs-4 pull-right">
                     <p class="h2 main-font inner-shadow-text effect-text" style='cursor: pointer;'
                         onclick="$('.toUnBeat').toggleClass('beatit'); if (window.oldStoredForm && window.oldStoredForm !== $('#contactForm').serialize()) $('#contactForm').submit(); else $('.contactUs').toggleClass('hidden');"
-                    >Send</p>
+                    >{% gtranslate 'Send' request.session.lang cache=True %}</p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-7 text-center default">
-                <p class='header-font h3 inner-shadow-text'>Powered by Django and hosted on Heroku</p>
-                <p class='header-font h3 inner-shadow-text' style='display: block;'>&copy; Since 2018 with undying love</p>
+                <p class='header-font h3 inner-shadow-text'>Powered by Python and Django</p>
+                <p class='header-font h3 inner-shadow-text' style='display: block;'>&copy; Since 2018 with love</p>
             </div>
             <div class="col-xs-4 text-center pt-1">
                 <div class="col-xs-12 text-center pb-3 shareUs hidden">
                     <div class="col-xs-12 col-sm-4">
                         <span class="fa fa-5x effect-share fa-facebook-official"
-                            data-toggle="tooltip" data-placement="top" title="On Facebook"
+                            data-toggle="tooltip" data-placement="top" title="Facebook"
                             onclick="window.open('https://www.facebook.com/sharer.php?u=' + window.location.origin, '_blank')"
                         ></span>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                         <span class="fa fa-5x effect-share fa-linkedin-square"
-                            data-toggle="tooltip" data-placement="top" title="On Linkedin"
-                            onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=' + window.location.origin, '_blank')"
+                            data-toggle="tooltip" data-placement="top" title="Linkedin"
+                            onclick="window.open('http://www.linkedin.com/shareArticle?mini=cache=True&amp;url=' + window.location.origin, '_blank')"
                         ></span>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                         <span class="fa fa-5x effect-share fa-google-plus-square"
-                            data-toggle="tooltip" data-placement="top" title="On Google+"
+                            data-toggle="tooltip" data-placement="top" title="Google+"
                             onclick="window.open('https://plus.google.com/share?url=' + window.location.origin, '_blank')"
                         ></span>
                     </div>
@@ -332,18 +333,19 @@
                 <div class="col-xs-12">
                     <div class="col-xs-12 col-sm-4">
                         <span class="fa fa-5x effect-text fa-heart"
-                            data-toggle="tooltip" data-placement="top" title="Share us"
+                            data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Share us with others' request.session.lang cache=True %}"
                             onclick="$(this).toggleClass('beatit'); $('.shareUs').hasClass('hidden') ? $('.shareUs').animate({'opacity': '1'}).removeClass('hidden') : $('.shareUs').addClass('hidden'); $(document).scrollTop($(document).height())"
                         ></span>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                         <span class="fa fa-5x effect-text fa-github"
-                            data-toggle="tooltip" data-placement="top" title="Source-code. Soon will be released"
+                            data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Source-code' request.session.lang cache=True %}"
+                            onclick="window.open('https://github.com/mrf345/IWT', '_blank')"
                         ></span>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                         <span class="fa fa-5x effect-text fa-envelope toUnBeat"
-                            data-toggle="tooltip" data-placement="top" title="Contact us"
+                            data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Contact us' request.session.lang cache=True %}"
                             onclick="$(this).toggleClass('beatit'); $('.contactUs').toggleClass('hidden');$(document).scrollTop($(document).height());"
                         ></span>
                     </div>
@@ -355,43 +357,23 @@
     <div class="itsLoading">
         <span class="fa fa-5x fa-refresh fa-spin inner-shadow-text-primary"></span>
     </div>
-    <!-- A general modal -->
-    <div class="modal fade default" id="modal-id">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"
-                     aria-hidden="true" style='color: white;'
-                    >&times;</button>
-                    <p class="modal-title text-center h3">Modal title</p>
-                </div>
-                <div class="modal-body">
-                    <h1>Non amet cillum qui id qui cillum exercitation ex aliqua ullamco Lorem non. Ipsum sint amet elit minim labore velit fugiat nulla labore deserunt esse aliquip. Id Lorem cillum dolore sit aliquip esse irure esse commodo eu proident ea adipisicing.</h1>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-modal fs-120 pull-left" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-default btn-modal fs-120" data-dismiss="modal">Submit it</button>
-                </div>
-            </div>
-        </div>
-    </div>
     {% if user.is_authenticated %}
     <div class="modal fade default" id="delete">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
-                     aria-hidden="true" style='color: white;'
+                     aria-hidden="cache=True" style='color: white;'
                     >&times;</button>
-                    <p class="modal-title text-center h3">Delete account</p>
+                    <p class="modal-title text-center h3">{% gtranslate 'Delete your account' request.session.lang cache=True %}</p>
                 </div>
                 <div class="modal-body">
-                    <h1>Are you sure, you want to delete this account and all of its texts ?</h1>
+                    <h1>{% gtranslate 'Are you sure, you want to delete this account and all of its texts ?' request.session.lang cache=True %}</h1>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-modal fs-120 pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default btn-modal fs-120 pull-left" data-dismiss="modal">{% gtranslate 'Cancel' request.session.lang cache=True %}</button>
                     <button type="button" class="btn btn-default btn-modal fs-120" 
-                    onclick="window.location = '/delete'">Delete</button>
+                    onclick="window.location = '/delete'">{% gtranslate 'Delete' request.session.lang cache=True %}</button>
                 </div>
             </div>
         </div>

@@ -69,14 +69,32 @@ def mode_gTranslate(r, src, dest, text):
 # Main index
 
 def root(r):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     if r.user.is_authenticated:
         return redirect('/texts')
-    c = {'title': title, 'to_activate': '#english',
+    c = {'title': title, 'to_activate': '',
     'bypassed_stuff': mark_safe(bypassed_stuff),
     'form_any': AnyUserForm,
     'form_main': MainLoginForm,
     'form_register': MainUserForm}
     return render(r, 'index.html', c)
+
+def lang_switch(r, lang, next):
+    if next == 'root':
+        next = '/'
+    if lang not in ['en', 'fr', 'it', 'ar', 'es']:
+        messages.add_message(
+            r, messages.ERROR,
+            'Language selected is not supported')
+        return redirect(next)
+    global def_lang
+    def_lang = lang
+    r.session['lang'] = def_lang
+    messages.add_message(
+    r, messages.INFO,
+    'Default language switched successfully')
+    return redirect(next)
 
 # Authentications
 
@@ -184,6 +202,8 @@ def logout_all(r):
 
 @login_required
 def texts(r):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     all_texts = Texts.objects.all()
     paginator = Paginator(all_texts, 7)
     public_texts = len(
@@ -201,6 +221,8 @@ def texts(r):
 
 @login_required
 def texts_sorted(r, sorting):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     sorting_keys = ['oldest', 'newest', 'mostViewed', 
     'leastViewed', 'mostShared', 'leastShared']
     usernames = [str(user.id
@@ -250,6 +272,8 @@ def texts_sorted(r, sorting):
 
 @login_required
 def texting(r, text_id):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     try:
         get_text_or_none = Texts.objects.get(id=text_id)
     except Exception:
@@ -276,6 +300,8 @@ def texting(r, text_id):
 
 @login_required
 def adding_text(r):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     form = TextingForm
     if r.method == 'POST':
         form = form(r.POST)
@@ -301,6 +327,8 @@ def adding_text(r):
 
 @login_required
 def editing_text(r, text_id):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     try:
         text = Texts.objects.get(id=text_id)
     except Exception:
@@ -331,6 +359,8 @@ def editing_text(r, text_id):
 
 @login_required
 def removing_text(r, text_id):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     try:
         text = Texts.objects.get(id=text_id)
     except Exception:
@@ -439,6 +469,8 @@ def delete(r):
 # Redirections and Errors
 
 def no_js(r):
+    if 'lang' not in r.session:
+        r.session['lang'] = def_lang
     if r.user.is_authenticated():
         logout(r)
     messages.add_message(

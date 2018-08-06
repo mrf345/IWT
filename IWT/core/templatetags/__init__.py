@@ -20,4 +20,8 @@ def com_it(text):
 @register.filter(name='number_it')
 def number_it(list):
     return [(index + 1, item) for index, item in enumerate(list)]
+
+@register.filter(name='strify')
+def strify(text):
+    return str(text)
     

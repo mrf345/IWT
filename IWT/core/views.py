@@ -11,11 +11,16 @@ from IWT.core.forms import (
     AnyUserForm, MainUserForm, MainLoginForm,
     ChangePasswordForm, TextingForm, SearchForm)
 from IWT.core.models import Texts
+from gTTS.views import gTTs
+from gtranslate.views import gTranslate
+from gtranslate.templatetags.gtranslate import gtranslate
+from re import compile, sub
+from difflib import SequenceMatcher
 
 # Default user stuff
-
 title = 'IWT Interact With Text'
 def_user = 'Anonymous'
+def_lang = 'en'
 try:
     User.objects.get(username=def_user)
 except Exception:
@@ -24,12 +29,50 @@ except Exception:
         def_user)
 
 
+# Bypassing gtts and getranslate for previewing
+bypassed_stuff = """
+This is a brief <strong>demonstration</strong> of, an interactive text. 
+You can interact with each word or sentence, by <b>hovering</b> over 
+it with your mouse or <b>touching</b> it through your touch screen. You 
+can translate and listen to <u>each word</u> or 
+<u>sentence</u> <i>separately</i>."""
+b_stuff_filtered = sub(compile('<.*?>'), '', bypassed_stuff)
+b_stuff_filtered = b_stuff_filtered.replace(
+    ',', '').replace('.', '').replace('\n', '')
+
+def mode_gTTs(r, language, text):
+    if not r.user.is_authenticated:
+        global b_stuff_filtered
+        s_stuff_filtered = b_stuff_filtered
+        if not language.startswith('en'):
+            s_stuff_filtered = gtranslate(
+                src='en', dest=language.split('-')[0], 
+                text=s_stuff_filtered)
+            # raise TypeError(str(SequenceMatcher(b=text.replace(',', '').replace('.', ''), a=s_stuff_filtered).ratio()))
+            # raise TypeError(text + ' | ' + s_stuff_filtered)
+        if text.replace(',', '').replace('.', '') not in s_stuff_filtered:
+            if 1 > int(SequenceMatcher(a=s_stuff_filtered, b=text).ratio() * 10) and text.replace(',', '').replace('.', '') not in s_stuff_filtered:
+                messages.add_message(r, messages.ERROR,
+                'You can not interact with text, without authentication')
+                return redirect('/')
+    return gTTs(r, language, text)
+
+def mode_gTranslate(r, src, dest, text):
+    if text.replace(',', '').replace('.', '') not in b_stuff_filtered and not r.user.is_authenticated:
+        messages.add_message(r, messages.ERROR,
+        'You can not interact with text, without authentication')
+        return redirect('/')
+    return gTranslate(r, src, dest, text)
+
+
+
 # Main index
 
 def root(r):
     if r.user.is_authenticated:
         return redirect('/texts')
     c = {'title': title, 'to_activate': '#english',
+    'bypassed_stuff': mark_safe(bypassed_stuff),
     'form_any': AnyUserForm,
     'form_main': MainLoginForm,
     'form_register': MainUserForm}

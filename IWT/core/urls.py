@@ -7,7 +7,7 @@ from IWT.core.views import (
     logout_all, login_main, register_main,
     change_password, delete, adding_text,
     editing_text, removing_text, share_text,
-    search_text)
+    search_text, mode_gTTs, mode_gTranslate)
 
 urlpatterns = [path('nojs', no_js),
 path('not_logged', not_logged),
@@ -25,6 +25,8 @@ path('register_main', register_main),
 path('logout_all', logout_all),
 path('change_password', change_password),
 path('delete', delete),
+path('gtts/<language>/<text>', mode_gTTs),
+path('tran/<src>/<dest>/<text>', mode_gTranslate),
 path('', root),
 url('', wrong_route)]
 

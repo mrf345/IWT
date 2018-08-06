@@ -18,7 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('adminstration/', admin.site.urls),
-    path('gtts/', include('gTTS.urls')),
-    path('tran/', include('gtranslate.urls')),
     path('', include('IWT.core.urls'))
 ]

@@ -11,6 +11,7 @@ gunicorn = "*"
 django-heroku = "*"
 django-gtts = "*"
 django-gtranslate = "*"
+django-recaptcha2 = "*"
 
 
 [requires]

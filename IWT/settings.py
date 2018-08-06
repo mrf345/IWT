@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = 'ie_(5^w=m_mh63e+%p=7r3qbd7fg4k42b9gf8iqg-wb(si6-$5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mighty-depths-14520.herokuapp.com']
 
 
 # Application definition
@@ -130,3 +131,5 @@ CSRF_FAILURE_VIEW = 'IWT.core.views.csrf_failure'
 # Recaptcha keys
 RECAPTCHA_PRIVATE_KEY = '6LckgWUUAAAAANO-LPXD4qLRZ7Zi7E01zhdIZmiP'
 RECAPTCHA_PUBLIC_KEY = '6LckgWUUAAAAAKIghPfJ-YlOuoQNQNqDIW7YvFPH'
+
+django_heroku.settings(locals())

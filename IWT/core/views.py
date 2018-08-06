@@ -48,21 +48,21 @@ def mode_gTTs(r, language, text):
             s_stuff_filtered = gtranslate(
                 src='en', dest=language.split('-')[0], 
                 text=s_stuff_filtered)
-            # raise TypeError(str(SequenceMatcher(b=text.replace(',', '').replace('.', ''), a=s_stuff_filtered).ratio()))
-            # raise TypeError(text + ' | ' + s_stuff_filtered)
         if text.replace(',', '').replace('.', '') not in s_stuff_filtered:
             if 1 > int(SequenceMatcher(a=s_stuff_filtered, b=text).ratio() * 10) and text.replace(',', '').replace('.', '') not in s_stuff_filtered:
                 messages.add_message(r, messages.ERROR,
                 'You can not interact with text, without authentication')
                 return redirect('/')
-    return gTTs(r, language, text)
+    return gTTs(r, language=language, text=text)
 
 def mode_gTranslate(r, src, dest, text):
-    if text.replace(',', '').replace('.', '') not in b_stuff_filtered and not r.user.is_authenticated:
-        messages.add_message(r, messages.ERROR,
-        'You can not interact with text, without authentication')
-        return redirect('/')
-    return gTranslate(r, src, dest, text)
+    if not r.user.is_authenticated:
+        global b_stuff_filtered
+        if text.replace(',', '').replace('.', '') not in b_stuff_filtered:
+            messages.add_message(r, messages.ERROR,
+            'You can not interact with text, without authentication')
+            return redirect('/')
+    return gTranslate(r, src=src, dest=dest, text=text)
 
 
 

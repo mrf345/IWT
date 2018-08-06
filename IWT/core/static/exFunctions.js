@@ -59,7 +59,8 @@ var defActions = { // some default repetitive events handlers
         fetch(
             window.location.origin + '/gtts/' +
             document.getElementById(theVal).value + 
-            '/' + defControl.tagsFilter(curEle.innerText)
+            '/' + defControl.tagsFilter(curEle.innerText),
+            {method: 'GET', credentials: 'include'}
         ).then(function (r) { return r.json() })
         .then(theFunc)
         .catch(function (e) {
@@ -76,7 +77,8 @@ var defActions = { // some default repetitive events handlers
             window.location.origin + '/tran/' +
             document.getElementById('readLang').value.split('-')[0] + '/' +
             document.getElementById(theVal).value +
-            '/' + defControl.tagsFilter(curEle.innerText)
+            '/' + defControl.tagsFilter(curEle.innerText),
+            {method: 'GET', credentials: 'include'}
         ).then(function (r) { return r.json() })
         .then(theFunc)
         .catch(function (e) {

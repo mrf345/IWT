@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
+from IWT.secrets import secrets
 import os
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ie_(5^w=m_mh63e+%p=7r3qbd7fg4k42b9gf8iqg-wb(si6-$5'
+SECRET_KEY = secrets.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mighty-depths-14520.herokuapp.com']
+ALLOWED_HOSTS = ['dido.serveo.net', 'localhost', 'iwt.serveo.net']
 
 
 # Application definition
@@ -124,12 +123,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = '/not_logged'
+# STATIC_ROOT = BASE_DIR + '/static/'
 
 # Redirect 403
 CSRF_FAILURE_VIEW = 'IWT.core.views.csrf_failure'
 
 # Recaptcha keys
-RECAPTCHA_PRIVATE_KEY = '6LckgWUUAAAAANO-LPXD4qLRZ7Zi7E01zhdIZmiP'
-RECAPTCHA_PUBLIC_KEY = '6LckgWUUAAAAAKIghPfJ-YlOuoQNQNqDIW7YvFPH'
-
-django_heroku.settings(locals())
+RECAPTCHA_PRIVATE_KEY = secrets.get('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = secrets.get('RECAPTCHA_PUBLIC_KEY')

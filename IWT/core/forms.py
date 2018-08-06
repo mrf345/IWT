@@ -1,6 +1,5 @@
 from django.forms import (
     Form, CharField, PasswordInput, EmailField, Textarea, TextInput)
-from captcha.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 

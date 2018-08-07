@@ -1,0 +1,4 @@
+django
+django-recaptcha2
+django-gtts
+django-gtrnaslate

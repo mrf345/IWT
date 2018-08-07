@@ -25,7 +25,7 @@ SECRET_KEY = secrets.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dido.serveo.net', 'localhost', 'iwt.serveo.net']
+ALLOWED_HOSTS = ['dido.serveo.net', 'localhost', 'iwt.serveo.net', '127.0.0.1']
 
 
 # Application definition

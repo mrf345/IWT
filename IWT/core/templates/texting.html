@@ -1,35 +1,36 @@
 {% extends "base.html" %}
 {% block sibling_content %}
+{% load gtranslate %}
 <noscript>
   <meta http-equiv="refresh" content="0;url=/nojs">
 </noscript>
 <div class="row">
     <div class="row mb-4 default hidden-xs">
         <div class="col-sm-2 h1 header-font inner-shadow-text" style="color: darkred;">
-            Author <br>
+            {% gtranslate 'Author' request.session.lang cache=True %} <br>
             <span class="badge" style="background-color: darkred;">{{ data.user_id.username }}</span>
         </div>
         <div class="col-sm-2 col-xs-offset-3 h1 text-center header-font inner-shadow-text" style="color: darkred;">
-            Published <br>
+            {% gtranslate 'Published' request.session.lang cache=True %} <br>
             <span class="badge" style="background-color: darkred;">{{ data.date }}</span>
         </div>
         <div class="col-sm-2 h1 text-right header-font col-xs-offset-3 inner-shadow-text" style='color:darkred;'>
-            Viewed <br>
-            <span class="badge badge-lg badge-primary" style='background-color: darkred;'>12</span>
+            {% gtranslate 'Viewed' request.session.lang cache=True %} <br>
+            <span class="badge badge-lg badge-primary" style='background-color: darkred;'>{{ data.viewed }}</span>
         </div>
     </div>
     <div class="row mb-4 default hidden-sm hidden-md hidden-xl hidden-lg">
         <div class="col-xs-4 h2 header-font inner-shadow-text" style="color: darkred;">
-            Author <br>
-            <span class="badge" style="background-color: darkred;">12</span>
+            {% gtranslate 'Author' request.session.lang cache=True %} <br>
+            <span class="badge" style="background-color: darkred;">{{ data.user_id_username }}</span>
         </div>
         <div class="col-xs-4 h2 text-center header-font inner-shadow-text" style="color: darkred;">
-            Published <br>
-            <span class="badge" style="background-color: darkred;">12</span>
+            {% gtranslate 'Published' request.session.lang cache=True %} <br>
+            <span class="badge" style="background-color: darkred;">{{ data.date }}</span>
         </div>
         <div class="col-xs-4 h2 text-right header-font inner-shadow-text" style='color:darkred;'>
-            Viewed <br>
-            <span class="badge badge-lg badge-primary" style='background-color: darkred;'>12</span>
+            {% gtranslate 'Viewed' request.session.lang cache=True %} <br>
+            <span class="badge badge-lg badge-primary" style='background-color: darkred;'>{{ data.viewed }}</span>
         </div>
     </div>
     <div class="col-xs-12 mb-4 default">
@@ -38,39 +39,40 @@
     <div class="col-xs-12 pt-3 pb-3">
         <form onchange="tagReady()">
             <div class="col-xs-6">
-                <label for="readLang" class="fs-120">Reading in:</label>
+                <label for="readLang" class="fs-120">{% gtranslate 'Reading in' request.session.lang cache=True %}:</label>
                 <select id="readLang" name="readLang" class="form-control text-center">
-                    <option value="en-us">American English</option>
-                    <option value="en-uk">British English</option>
-                    <option value="ar">Arabic</option>
-                    <option value="fr">French</option>
-                    <option value="it">Italian</option>
-                    <option value="es">Spanish</option>
+                    <option value="en-us">{% gtranslate 'American English' request.session.lang cache=True %}</option>
+                    <option value="en-uk">{% gtranslate 'British English' request.session.lang cache=True %}</option>
+                    <option value="en-au">{% gtranslate 'Australian English' request.session.lang cache=True %}</option>
+                    <option value="ar">{% gtranslate 'Arabic' request.session.lang cache=True %}</option>
+                    <option value="fr">{% gtranslate 'French' request.session.lang cache=True %}</option>
+                    <option value="it">{% gtranslate 'Italian' request.session.lang cache=True %}</option>
+                    <option value="es">{% gtranslate 'Spanish' request.session.lang cache=True %}</option>
                 </select>
             </div>
             <div class="col-xs-6">
-                <label for="tranLang" class="fs-120">Translating to:</label>
+                <label for="tranLang" class="fs-120">{% gtranslate 'Translating to' request.session.lang cache=True %}:</label>
                 <select id="tranLang" name="tranLang" class="form-control text-center">
-                    <option value="fr">French</option>
-                    <option value="en">English</option>
-                    <option value="ar">Arabic</option>
-                    <option value="it">Italian</option>
-                    <option value="es">Spanish</option>
+                    <option value="fr">{% gtranslate 'French' request.session.lang cache=True %}</option>
+                    <option value="en">{% gtranslate 'English' request.session.lang cache=True %}</option>
+                    <option value="ar">{% gtranslate 'Arabic' request.session.lang cache=True %}</option>
+                    <option value="it">{% gtranslate 'Italian' request.session.lang cache=True %}</option>
+                    <option value="es">{% gtranslate 'Spanish' request.session.lang cache=True %}</option>
                 </select>
             </div>
             <div class="col-xs-6 mt-2">
-                <label for="actEvent" class="fs-120">Read when:</label>
+                <label for="actEvent" class="fs-120">{% gtranslate 'Read when' request.session.lang cache=True %}:</label>
                 <select id="actEvent" name="actEvent" class="form-control text-center">
-                    <option value="click">Click or Touch</option>
-                    <option value="mouseover">Mouse over</option>
+                    <option value="click">{% gtranslate 'Click or Touch' request.session.lang cache=True %}</option>
+                    <option value="mouseover">{% gtranslate 'Mouse over' request.session.lang cache=True %}</option>
                 </select>
             </div>
             <div class="col-xs-6 mt-2">
-                <label for="divider" class="fs-120">Splitter:</label>
+                <label for="divider" class="fs-120">{% gtranslate 'Process with' request.session.lang cache=True %}:</label>
                 <select id="divider" name="language" class="form-control text-center">
-                    <option value=".">Full sentences</option>
-                    <option value=".;,">Partial sentences</option>
-                    <option value=" ">Words</option>
+                    <option value=".">{% gtranslate 'Full sentence' request.session.lang cache=True %}</option>
+                    <option value=".;,">{% gtranslate 'Partial sentence' request.session.lang cache=True %}</option>
+                    <option value=" ">{% gtranslate 'Words' request.session.lang cache=True %}</option>
                 </select>
             </div>
         </form>
@@ -81,43 +83,43 @@
         </div>
         <div style="text-align: center;">
             <span class="fa fa-2x fa-headphones effect-text inner-shadow-text"
-                data-toggle="tooltip" data-placement="top" title="read all text"
+                data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Read all text' request.session.lang cache=True %}"
                 onclick="readTranAll('.splitIt', false)"
             ></span>
             <span class="fa fa-2x fa-language effect-text inner-shadow-text"
-                data-toggle="tooltip" data-placement="top" title="Translate all text"
+                data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Translate all text' request.session.lang cache=True %}"
                 onclick="readTranAll('.splitIt', true);"
             ></span>
             <span class="fa fa-2x fa-heart effect-text inner-shadow-text toCancelShare"
-                data-toggle="tooltip" data-placement="top" title="Share text"
+                data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Share text' request.session.lang cache=True %}"
                 onclick="$('.toShareText').toggleClass('hidden');$(this).toggleClass('beatit');"
             ></span>
             <!-- IF AUTHENTICATED AND OWNER -->
             {% if data.user_id == user and data.user_id.username != 'Anonymous' %}
             <span class="fa fa-2x fa-pencil effect-text inner-shadow-text"
-                data-toggle="tooltip" data-placement="top" title="Edit text"
+                data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Edit text' request.session.lang cache=True %}"
                 onclick="window.location = '/updating_text/{{ data.id }}'"
             ></span>
             <span class="fa fa-2x fa-ban effect-text inner-shadow-text"
-                data-toggle="tooltip" data-placement="top" title="Delete text"
+                data-toggle="tooltip" data-placement="top" title="{% gtranslate 'Delete text' request.session.lang cache=True %}"
                 onclick="$('#remove').modal();"
             ></span>
             {% endif %}
             <div class='row hidden toShareText'>
                 <span class="fa fa-2x fa-facebook effect-text inner-shadow-text"
-                    data-toggle="tooltip" data-placement="top" title="On Facebook"
+                    data-toggle="tooltip" data-placement="top" title="Facebook"
                     onclick="window.open(window.location.origin + '/share_text/facebook/{{ data.id }}', '_blank')"
                 ></span>
                 <span class="fa fa-2x fa-twitter effect-text inner-shadow-text"
-                    data-toggle="tooltip" data-placement="top" title="On Twitter"
+                    data-toggle="tooltip" data-placement="top" title="Twitter"
                     onclick="window.open(window.location.origin + '/share_text/twitter/{{ data.id }}', '_blank')"
                 ></span>
                 <span class="fa fa-2x fa-linkedin effect-text inner-shadow-text"
-                    data-toggle="tooltip" data-placement="top" title="On LinkedIn"
+                    data-toggle="tooltip" data-placement="top" title="LinkedIn"
                     onclick="window.open(window.location.origin + '/share_text/linkedin/{{ data.id }}', '_blank')"
                 ></span>
                 <span class="fa fa-2x fa-google-plus effect-text inner-shadow-text"
-                    data-toggle="tooltip" data-placement="top" title="On Google+"
+                    data-toggle="tooltip" data-placement="top" title="Google+"
                     onclick="window.open(window.location.origin + '/share_text/google+/{{ data.id }}', '_blank')"
                 ></span>    
             </div>
@@ -132,15 +134,15 @@
                 <button type="button" class="close" data-dismiss="modal"
                  aria-hidden="true" style='color: white;'
                 >&times;</button>
-                <p class="modal-title text-center h3">Delete text</p>
+                <p class="modal-title text-center h3">{% gtranslate 'Delete text' request.session.lang cache=True %}</p>
             </div>
             <div class="modal-body">
-                <h1>Are you sure, you want to delete this text for good ?</h1>
+                <h1>{% gtranslate 'Are you sure, you want to delete this text for good ?' request.session.lang cache=True %}</h1>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-modal fs-120 pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default btn-modal fs-120 pull-left" data-dismiss="modal">{% gtranslate 'Cancel' request.session.lang cache=True %}</button>
                 <button type="button" class="btn btn-default btn-modal fs-120" 
-                onclick="window.location = '/removing_text/{{ data.id }}'">Delete</button>
+                onclick="window.location = '/removing_text/{{ data.id }}'">{% gtranslate 'Delete' request.session.lang cache=True %}</button>
             </div>
         </div>
     </div>

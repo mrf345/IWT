@@ -2,6 +2,7 @@ from django.forms import (
     Form, CharField, PasswordInput, EmailField, Textarea, TextInput)
 from snowpenguin.django.recaptcha2.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
+from gtranslate.templatetags.gtranslate import gtranslate
 
 class AnyUserForm(Form):
     captcha = ReCaptchaField(widget=ReCaptchaWidget(theme='dark'))
@@ -46,7 +47,4 @@ class TextingForm(Form):
 class SearchForm(Form):
     text = CharField(
         max_length=300,
-        min_length=2,
-        widget=TextInput(attrs={
-            'class': 'form-control header-font',
-            'placeholder': 'Keywords to search for ...'}))
+        min_length=2)

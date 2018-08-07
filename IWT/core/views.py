@@ -81,8 +81,7 @@ def root(r):
     return render(r, 'index.html', c)
 
 def lang_switch(r, lang, next):
-    if next == 'root':
-        next = '/'
+    next = '/' if next == 'root' else '/' + next
     if lang not in ['en', 'fr', 'it', 'ar', 'es']:
         messages.add_message(
             r, messages.ERROR,
@@ -321,7 +320,8 @@ def adding_text(r):
                 r, messages.ERROR,
                 'Wrong data entered')
     c = {'title': title + ' - Adding text',
-    'form_search': SearchForm,
+    'form_search': SearchForm, 
+    'form_password': ChangePasswordForm,
     'to_activate': '#addText', 'form': form}
     return render(r, 'texting_add.html', c)
 
@@ -353,7 +353,8 @@ def editing_text(r, text_id):
     else:
         form = form(initial={'title': text.title})
     c = {'title': title + ' - Updating text',
-    'form_search': SearchForm,
+    'form_search': SearchForm, 
+    'form_password': ChangePasswordForm,
     'to_activate': '', 'form': form, 'text': text.text}
     return render(r, 'texting_add.html', c)
 
@@ -471,7 +472,7 @@ def delete(r):
 def no_js(r):
     if 'lang' not in r.session:
         r.session['lang'] = def_lang
-    if r.user.is_authenticated():
+    if r.user.is_authenticated:
         logout(r)
     messages.add_message(
         r, messages.ERROR,

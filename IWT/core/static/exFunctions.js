@@ -372,5 +372,5 @@ var textForm = function (toEffect) {
 
 // to resolve previous link
 var get_org = function () {
-    return window.location.origin + '/' === window.location.href ? 'root' : window.location.href.replace(window.location.origin, '')
+    return window.location.origin + '/' === window.location.href ? 'root' : window.location.href.replace(window.location.origin, '').slice(1)
 }

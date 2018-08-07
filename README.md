@@ -1,9 +1,9 @@
 <p align='center'>
-<h1>Interact With Text (IWT)</h1><
+<h1>Interact With Text (IWT)</h1>
 <h5>Interactive text, allows its users to interact with texts to produce text-to-speech reading and translation, via clicking and hovering</h5>
 ( <a href='http://iwt.serveo.net/'>Live server</a> )
 <br /> <br />
-<img src="https://audio-sequence.github.io/iwt.gif">
+<img style='width: 300px;' src="https://audio-sequence.github.io/iwt.gif">
 <br />
 </p>
 

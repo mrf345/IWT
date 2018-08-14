@@ -1,7 +1,7 @@
 <p align='center'>
 <h1>Interact With Text (IWT)</h1>
 <h5>Interactive text, allows its users to interact with texts to produce text-to-speech reading and translation, via clicking and hovering</h5>
-( <a href='http://iwt.duckdns.org:42475/'>Live server</a> )
+( <a href='http://iwt-42475.portmap.io:42475/'>Live example</a> )
 <br /> <br />
 <img width='30%' src="https://audio-sequence.github.io/iwt.gif">
 <br />
